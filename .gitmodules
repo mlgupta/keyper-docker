@@ -1,0 +1,6 @@
+[submodule "service/nginx/assets/keyper-fe"]
+	path = service/nginx/assets/keyper-fe
+	url = https://github.com/dbsentry/keyper-fe.git
+[submodule "service/gunicorn/assets/keyper"]
+	path = service/gunicorn/assets/keyper
+	url = https://github.com/dbsentry/keyper.git
