@@ -20,8 +20,13 @@ fi
 
 cd /container/service/nginx/assets
 mv keyper-fe /var/www
+mv scripts /var/www
+mv docs /var/www
 cd /var/www
-chown -R nginx:nginx keyper-fe
+chown -R nginx:nginx keyper-fe scripts docs
+
+cd /var/www/scripts
+sed -i "s/{{HOSTNAME}}/${HOSTNAME}/g" auth.sh.txt
 
 cd /container/service/nginx/assets/etc/conf.d
 mv default.conf /etc/nginx/conf.d
