@@ -1,0 +1,16 @@
+#!/bin/sh -e
+
+# wait startup to finish
+while ! test -f /container/run/state/startup-done
+do
+    sleep 0.5
+done
+
+for process in "$@"
+do
+    # wait service
+    while ! pgrep -c "${process}" > /dev/null
+    do
+        sleep 0.5
+    done
+done

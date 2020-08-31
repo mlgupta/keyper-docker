@@ -1,0 +1,77 @@
+dn: {{LDAP_BASEDN}}
+objectClass: dcObject
+objectClass: organization
+o: {{LDAP_ORGANIZATION}}
+structuralObjectClass: organization
+
+dn: cn=Manager,{{LDAP_BASEDN}}
+objectClass: organizationalRole
+cn: Manager
+structuralObjectClass: organizationalRole
+
+dn: ou=groups,{{LDAP_BASEDN}}
+objectClass: organizationalUnit
+objectClass: top
+ou: groups
+description: OU where groups are defined
+structuralObjectClass: organizationalUnit
+
+dn: ou=people,{{LDAP_BASEDN}}
+objectClass: organizationalUnit
+objectClass: top
+ou: people
+structuralObjectClass: organizationalUnit
+
+dn: ou=Hosts,{{LDAP_BASEDN}}
+objectClass: organizationalUnit
+objectClass: top
+ou: Hosts
+structuralObjectClass: organizationalUnit
+
+dn: cn=admin,ou=people,{{LDAP_BASEDN}}
+objectClass: inetOrgPerson
+objectClass: top
+objectClass: ldapPublicKey
+uid: admin
+cn: admin
+sn: admin
+givenName: admin
+displayName: admin
+userPassword: {{LDAP_ADMIN_PASSWORD}}
+memberOf: cn=KeyperAdmins,ou=groups,{{LDAP_BASEDN}}
+structuralObjectClass: inetOrgPerson
+
+dn: cn=KeyperAdmins,ou=groups,{{LDAP_BASEDN}}
+objectClass: groupOfNames
+objectClass: top
+description: Keyper Administrators
+member: cn=Manager,{{LDAP_BASEDN}}
+member: cn=admin,ou=people,{{LDAP_BASEDN}}
+structuralObjectClass: groupOfNames
+cn: KeyperAdmins
+
+dn: cn=AllHosts,ou=groups,{{LDAP_BASEDN}}
+objectClass: groupOfNames
+objectClass: top
+description: All Hosts Group
+member: cn=admin,ou=people,{{LDAP_BASEDN}}
+structuralObjectClass: groupOfNames
+cn: AllHosts
+
+dn: ou=policies,{{LDAP_BASEDN}}
+objectClass: organizationalUnit
+objectClass: top
+ou: policies
+description: Policy Definition OU
+structuralObjectClass: organizationalUnit
+
+dn: cn=default,ou=policies,{{LDAP_BASEDN}}
+objectClass: pwdPolicy
+objectClass: organizationalRole
+cn: default
+pwdAttribute: userPassword
+pwdMinLength: 3
+pwdCheckQuality: 2
+pwdLockout: TRUE
+structuralObjectClass: organizationalRole
+

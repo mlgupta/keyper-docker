@@ -1,0 +1,44 @@
+#############################################################################
+#                       Confidentiality Information                         #
+#                                                                           #
+# This module is the confidential and proprietary information of            #
+# DBSentry Corp.; it is not to be copied, reproduced, or transmitted in any #
+# form, by any means, in whole or in part, nor is it to be used for any     #
+# purpose other than that for which it is expressly provided without the    #
+# written permission of DBSentry Corp.                                      #
+#                                                                           #
+# Copyright (c) 2020-2021 DBSentry Corp.  All Rights Reserved.              #
+#                                                                           #
+#############################################################################
+# All environment variables used after the container first start must be 
+# defined here.
+#############################################################################
+#
+LDAP_LOG_LEVEL: 256
+
+# Ulimit
+LDAP_NOFILE: 1024
+
+# Do not perform any chown to fix file ownership
+DISABLE_CHOWN: false
+
+# Default port to bind slapd
+LDAP_PORT: 389
+LDAPS_PORT: 636
+
+
+# Required and used for new ldap server only
+LDAP_ORGANIZATION_NAME: Example Inc.
+LDAP_DOMAIN: keyper.example.org
+
+LDAP_ADMIN_PASSWORD: superdupersecret
+
+LDAP_TLS_CA_CRT_FILENAME: ca.crt
+LDAP_TLS_CRT_FILENAME: server.crt
+LDAP_TLS_KEY_FILENAME: server.key
+LDAP_TLS_DH_PARAM_FILENAME: dhparam.pem
+
+LDAP_TLS_ENFORCE: false
+LDAP_TLS_CIPHER_SUITE: TLSv1.2:HIGH:!aNULL:!eNULL
+LDAP_TLS_PROTOCOL_MIN: 3.3
+LDAP_TLS_VERIFY_CLIENT: demand

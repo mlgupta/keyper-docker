@@ -1,0 +1,80 @@
+dn: cn=config
+objectClass: olcGlobal
+cn: config
+olcArgsFile: /run/openldap/slapd.args
+olcPidFile: /run/openldap/slapd.pid
+olcDisallows: bind_anon
+olcRequires: authc
+structuralObjectClass: olcGlobal
+olcTLSCACertificateFile: {{LDAP_TLS_CA_CRT_PATH}}
+olcTLSCertificateFile: {{LDAP_TLS_CRT_PATH}} 
+olcTLSCertificateKeyFile: {{LDAP_TLS_KEY_PATH}}
+olcTLSCipherSuite: {{LDAP_TLS_CIPHER_SUITE}}
+olcTLSDHParamFile: {{LDAP_TLS_DH_PARAM_PATH}}
+olcTLSProtocolMin: {{LDAP_TLS_PROTOCOL_MIN}}
+olcTLSVerifyClient: {{LDAP_TLS_VERIFY_CLIENT}}
+
+dn: cn=module{0},cn=config
+objectClass: olcModuleList
+cn: module{0}
+olcModulePath: /usr/lib/openldap
+olcModuleLoad: {0}back_mdb.so
+olcModuleLoad: {0}back_monitor.so
+olcModuleLoad: {0}ppolicy.so
+olcModuleLoad: {0}memberof.so
+olcModuleLoad: {0}refint.so
+olcModuleLoad: {0}auditlog.so
+structuralObjectClass: olcModuleList
+
+dn: cn=schema,cn=config
+objectClass: olcSchemaConfig
+cn: schema
+structuralObjectClass: olcSchemaConfig
+
+include: file:///etc/openldap/schema/core.ldif
+include: file:///etc/openldap/schema/cosine.ldif
+include: file:///etc/openldap/schema/inetorgperson.ldif
+include: file:///etc/openldap/schema/nis.ldif
+include: file:///etc/openldap/schema/openldap.ldif
+include: file:///etc/openldap/schema/ppolicy.ldif
+
+dn: olcDatabase={-1}frontend,cn=config
+objectClass: olcDatabaseConfig
+objectClass: olcFrontendConfig
+olcDatabase: {-1}frontend
+olcRequires: authc
+structuralObjectClass: olcDatabaseConfig
+
+dn: olcDatabase={0}config,cn=config
+objectClass: olcDatabaseConfig
+olcDatabase: {0}config
+olcAccess: {0}to *  by * none
+olcAddContentAcl: TRUE
+olcLastMod: TRUE
+olcMaxDerefDepth: 15
+olcReadOnly: FALSE
+olcRootDN: cn=config
+olcRootPW: {{LDAP_ADMIN_PASSWORD}}
+olcSyncUseSubentry: FALSE
+olcMonitoring: FALSE
+structuralObjectClass: olcDatabaseConfig
+
+dn: olcDatabase={1}mdb,cn=config
+objectClass: olcDatabaseConfig
+objectClass: olcMdbConfig
+olcDatabase: {1}mdb
+olcDbDirectory: /var/lib/openldap/openldap-data
+olcSuffix: {{LDAP_BASEDN}}
+olcRootDN: cn=Manager,{{LDAP_BASEDN}}
+olcRootPW: {{LDAP_ADMIN_PASSWORD}}
+olcDbIndex: objectClass eq
+olcDbIndex: cn eq
+olcDbIndex: member eq
+structuralObjectClass: olcMdbConfig
+
+dn: olcDatabase={2}monitor,cn=config
+objectClass: olcDatabaseConfig
+olcDatabase: {2}monitor
+olcAccess: {0}to dn.subtree=cn=monitor by users read
+structuralObjectClass: olcDatabaseConfig
+
