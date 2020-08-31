@@ -36,6 +36,8 @@ RUN 	apk add --no-cache 	python3 			\
 				openldap-overlay-auditlog 	\
 				openldap-back-monitor 		
 COPY 	. /container
+COPY	--from=builder /container/service/gunicorn/assets/keyper/env /container/service/gunicorn/assets/keyper
+COPY	--from=builder /container/service/nginx/assets/keyper-fe/dist /container/service/nginx/assets
 RUN 	/container/build.sh
 ENTRYPOINT ["/container/tools/run"]
 EXPOSE 80 443 389 636

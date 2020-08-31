@@ -21,6 +21,9 @@ apk upgrade --no-cache
 
 # Remove useless files
 rm -rf /tmp/* /var/tmp/* /container/build.sh /container/Dockerfile
+cd /container/service/nginx/assets
+rm -rf keyper-fe
+mv dist keyper-fe
 
 echo "Installing Services"
 /container/tools/install-service
