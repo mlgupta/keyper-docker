@@ -17,13 +17,16 @@ mkdir /container/run
 chown -R root:root /container/environment
 chmod 700 /container/environment /container/environment/startup
 
+cd /container
+tar -xzf out.tar.gz
+mv keyper /container/service/gunicorn/assets
+mv keyper-fe /container/service/nginx/assets
+
 apk upgrade --no-cache
 
 # Remove useless files
 rm -rf /tmp/* /var/tmp/* /container/build.sh /container/Dockerfile
-cd /container/service/nginx/assets
-rm -rf keyper-fe
-mv dist keyper-fe
+rm -f /container/out.tar.gz
 
 echo "Installing Services"
 /container/tools/install-service

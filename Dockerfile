@@ -17,7 +17,7 @@ RUN 	apk add --no-cache 	python3 			\
 				openldap-overlay-refint 	\
 				openldap-overlay-auditlog 	\
 				openldap-back-monitor 		
-COPY 	. /container
+COPY 	modules /container
 RUN 	/container/build_builder.sh
 
 FROM 	alpine:latest
@@ -35,9 +35,8 @@ RUN 	apk add --no-cache 	python3 			\
 				openldap-overlay-refint 	\
 				openldap-overlay-auditlog 	\
 				openldap-back-monitor 		
-COPY 	. /container
-COPY	--from=builder /container/service/gunicorn/assets/keyper/env /container/service/gunicorn/assets/keyper
-COPY	--from=builder /container/service/nginx/assets/keyper-fe/dist /container/service/nginx/assets
+COPY 	container /container
+COPY	--from=builder /container/out.tar.gz /container/out.tar.gz
 RUN 	/container/build.sh
 ENTRYPOINT ["/container/tools/run"]
 EXPOSE 80 443 389 636

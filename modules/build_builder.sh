@@ -11,17 +11,36 @@
 # Copyright (c) 2020-2021 DBSentry Corp.  All Rights Reserved.              #
 #                                                                           #
 #############################################################################
-ln -s /container/tools/* /sbin/
+# Build Vue frontend app
+cd /container/keyper-fe
+npm install
+npm run build
+
+status=$?
+
+if [ $status -eq 0 ]; then
+	mv dist /var/www/keyper-fe
+else
+	echo "##########################################################"
+	echo "Error building keyper-fe"
+	echo "##########################################################"
+fi
 
 # Build and install flask modules/libraries
-cd /container/service/gunicorn/assets/keyper
+mv /container/keyper /var/www
+cd /var/www/keyper
 rm -rf env/*
 python3 -m venv env
 . env/bin/activate
 pip install -r requirements.txt
 
+status=$?
 
-# Build Vue frontend app
-cd /container/service/nginx/assets/keyper-fe
-npm install
-npm run build
+if [ $status -eq 0 ]; then
+	cd /var/www
+	tar -czf /container/out.tar.gz .
+else
+	echo "##########################################################"
+	echo "Error building keyper"
+	echo "##########################################################"
+fi
