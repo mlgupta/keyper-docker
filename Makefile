@@ -29,6 +29,7 @@ SHELL=/bin/bash
 
 DOCKER_BUILD_CONTEXT=.
 DOCKER_FILE_PATH=Dockerfile
+DOCKER_BUILD_ARGS=--squash
 
 .PHONY: pre-build docker-build post-build build release patch-release minor-release major-release tag check-status check-release showver \
 	push pre-push do-push post-push
