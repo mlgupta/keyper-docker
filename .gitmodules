@@ -1,6 +1,6 @@
-[submodule "service/nginx/assets/keyper-fe"]
+[submodule "modules/keyper-fe"]
 	path = modules/keyper-fe
 	url = https://github.com/dbsentry/keyper-fe.git
-[submodule "service/gunicorn/assets/keyper"]
+[submodule "modules/keyper"]
 	path = modules/keyper
 	url = https://github.com/dbsentry/keyper.git
