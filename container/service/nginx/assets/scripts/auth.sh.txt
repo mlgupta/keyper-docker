@@ -1,10 +1,31 @@
 #!/bin/sh
-
+#############################################################################
+#                       Confidentiality Information                         #
+#                                                                           #
+# This module is the confidential and proprietary information of            #
+# DBSentry Corp.; it is not to be copied, reproduced, or transmitted in any #
+# form, by any means, in whole or in part, nor is it to be used for any     #
+# purpose other than that for which it is expressly provided without the    #
+# written permission of DBSentry Corp.                                      #
+#                                                                           #
+# Copyright (c) 2020-2021 DBSentry Corp.  All Rights Reserved.              #
+#                                                                           #
+#############################################################################
 USER="$1"
+FP="$2"
 HOST=`hostname`
 KEYPER_HOST={{HOSTNAME}}
 
-curl -s -q -f -m 7  "http://${KEYPER_HOST}/api/authkeys?username=${USER}&host=${HOST}"
-#curl -s -q -f -m 7 -Fusername=${USER} -Fhost=${HOST} http://${KEYPER_HOST}/api/authkeys
+CURL_ARGS="-s -q -f -m 7"
+CURL_URL_ARGS_GET="username=${USER}&host=${HOST}"
+CURL_URL_ARGS_POST="-Fusername=${USER} -Fhost=${HOST}"
+
+## Use this if you want get public keys using HTTP GET
+[ -z ${FP} ] || CURL_URL_ARGS_GET="${CURL_URL_ARGS_GET}&fingerprint=${FP}"
+curl ${CURL_ARGS} "http://${KEYPER_HOST}/api/authkeys?${CURL_URL_ARGS_GET}"
+
+## Use this if you want get public keys using HTTP POST
+#[ -z ${FP} ] || CURL_URL_ARGS_POST="${CURL_URL_ARGS_POST} -Ffingerprint=${FP}"
+#curl ${CURL_ARGS} ${CURL_URL_ARGS_POST} http://${KEYPER_HOST}/api/authkeys
 
 exit $?

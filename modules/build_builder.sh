@@ -13,6 +13,7 @@
 #############################################################################
 # Build Vue frontend app
 cd /container/keyper-fe
+rm -rf .git .gitignore
 npm install
 npm run build
 
@@ -29,7 +30,7 @@ fi
 # Build and install flask modules/libraries
 mv /container/keyper /var/www
 cd /var/www/keyper
-rm -rf env/*
+rm -rf env/* .git .gitignore
 python3 -m venv env
 . env/bin/activate
 pip install -r requirements.txt
