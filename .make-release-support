@@ -105,14 +105,7 @@ function nextMajorLevel() {
 }
 
 function getImageId() {
-	imageId=$(docker images )
+	imageId=$(docker images $1 --format "{{.ID}}")
 
-#	if differsFromRelease; then
-#		result="$result-$(git log -n 1 --format=%h .)"
-#	fi
-#
-#	if hasChanges ; then
-#		result="$result-dirty"
-#	fi
-	echo $result
+	echo $imageId
 }
