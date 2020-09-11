@@ -71,7 +71,6 @@ docker-build: .release
 
 docker-build-quay: 
 	IMAGEID=$(shell . $(RELEASE_SUPPORT) ; getImageId "$(USERNAME)/$(NAME):$(VERSION)") ;\
-	echo $$IMAGEID ; \
 	docker tag $$IMAGEID $(IMAGE_QUAY):$(VERSION) ; \
 	docker tag $$IMAGEID $(IMAGE_QUAY):latest ; \
 
