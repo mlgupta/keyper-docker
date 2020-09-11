@@ -105,7 +105,5 @@ function nextMajorLevel() {
 }
 
 function getImageId() {
-	imageId=$(docker images $1 --format "{{.ID}}")
-
-	echo $imageId
+	echo "$(docker images $1 --format '{{.ID}}')"
 }
