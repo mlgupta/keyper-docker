@@ -66,9 +66,9 @@ docker-build: .release
 		echo docker tag $(IMAGE):$(VERSION) $(IMAGE):latest ;\
 		docker tag $(IMAGE):$(VERSION) $(IMAGE):latest ; \
 		IMAGEID=$(shell . $(RELEASE_SUPPORT) ; getImageId "$(USERNAME)/$(NAME):$(VERSION)") ;\
-		echo $$IMAGEID ; \
-		docker tag $$IMAGEID $(IMAGE_QUAY):$(VERSION) ; \
-		docker tag $$IMAGEID $(IMAGE_QUAY):latest ; \
+		echo $(IMAGEID) ; \
+		docker tag $(IMAGEID) $(IMAGE_QUAY):$(VERSION) ; \
+		docker tag $(IMAGEID) $(IMAGE_QUAY):latest ; \
 	fi
 
 .release:
