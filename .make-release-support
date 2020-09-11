@@ -103,3 +103,16 @@ function nextMajorLevel() {
 	version=$(printf "%d.0.0" $(($major + 1)))
 	echo $version
 }
+
+function getImageId() {
+	imageId=$(docker images )
+
+#	if differsFromRelease; then
+#		result="$result-$(git log -n 1 --format=%h .)"
+#	fi
+#
+#	if hasChanges ; then
+#		result="$result-dirty"
+#	fi
+	echo $result
+}
