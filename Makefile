@@ -14,6 +14,7 @@
 #   limitations under the License.
 #
 REGISTRY_HOST=docker.io
+REGISTRY_HOST_QUAY=quay.io
 #USERNAME=$(USER)
 #NAME=$(shell basename $(CURDIR))
 USERNAME=dbsentry
@@ -21,6 +22,7 @@ NAME=keyper
 
 RELEASE_SUPPORT := $(shell dirname $(abspath $(lastword $(MAKEFILE_LIST))))/.make-release-support
 IMAGE=$(REGISTRY_HOST)/$(USERNAME)/$(NAME)
+IMAGE_QUAY=$(REGISTRY_HOST_QUAY)/$(USERNAME)/$(NAME)
 
 VERSION=$(shell . $(RELEASE_SUPPORT) ; getVersion)
 TAG=$(shell . $(RELEASE_SUPPORT); getTag)
@@ -47,6 +49,10 @@ pre-push:
 
 post-push:
 
+pre-push-quay:
+
+
+post-push-quay:
 
 
 docker-build: .release
@@ -59,6 +65,9 @@ docker-build: .release
 	else \
 		echo docker tag $(IMAGE):$(VERSION) $(IMAGE):latest ;\
 		docker tag $(IMAGE):$(VERSION) $(IMAGE):latest ; \
+		IMAGEID=$(shell . $(RELEASE_SUPPORT) ; getImageId "$(USERNAME)/$(NAME):latest") ;\
+		docker tag $(IMAGEID) $(IMAGE_QUAY):$(VERSION) ; \
+		docker tag $(IMAGEID) $(IMAGE_QUAY):latest ; \
 	fi
 
 .release:
@@ -70,12 +79,17 @@ docker-build: .release
 
 release: check-status check-release build push
 
-
 push: pre-push do-push post-push 
+
+push-quay: pre-push-quay do-push-quay post-push-quay
 
 do-push: 
 	docker push $(IMAGE):$(VERSION)
 	docker push $(IMAGE):latest
+
+do-push-quay: 
+	docker push $(IMAGE_QUAY):$(VERSION)
+	docker push $(IMAGE_QUAY):latest
 
 snapshot: build push
 
