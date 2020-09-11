@@ -38,6 +38,8 @@ DOCKER_BUILD_ARGS=--squash
 
 build: pre-build docker-build post-build
 
+build-quay: docker-build-quay
+
 pre-build:
 
 
@@ -65,11 +67,13 @@ docker-build: .release
 	else \
 		echo docker tag $(IMAGE):$(VERSION) $(IMAGE):latest ;\
 		docker tag $(IMAGE):$(VERSION) $(IMAGE):latest ; \
-		IMAGEID=$(shell . $(RELEASE_SUPPORT) ; getImageId "$(USERNAME)/$(NAME):$(VERSION)") ;\
-		echo $(IMAGEID) ; \
-		docker tag $(IMAGEID) $(IMAGE_QUAY):$(VERSION) ; \
-		docker tag $(IMAGEID) $(IMAGE_QUAY):latest ; \
 	fi
+
+docker-build-quay: 
+	IMAGEID=$(shell . $(RELEASE_SUPPORT) ; getImageId "$(USERNAME)/$(NAME):$(VERSION)") ;\
+	echo $$IMAGEID ; \
+	docker tag $$IMAGEID $(IMAGE_QUAY):$(VERSION) ; \
+	docker tag $$IMAGEID $(IMAGE_QUAY):latest ; \
 
 .release:
 	@echo "release=0.0.0" > .release
