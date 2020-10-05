@@ -12,19 +12,23 @@
 #                                                                           #
 #############################################################################
 # Build Vue frontend app
-cd /container/keyper-fe
-rm -rf .git .gitignore
-npm install
-npm run build
+if [ -f /container/keyper-fe/package.json ]; then
+	cd /container/keyper-fe
+	rm -rf .git .gitignore
+	npm install
+	npm run build
 
-status=$?
+	status=$?
 
-if [ $status -eq 0 ]; then
-	mv dist /var/www/keyper-fe
+	if [ $status -eq 0 ]; then
+		mv dist /var/www/keyper-fe
+	else
+		echo "##########################################################"
+		echo "Error building keyper-fe"
+		echo "##########################################################"
+	fi
 else
-	echo "##########################################################"
-	echo "Error building keyper-fe"
-	echo "##########################################################"
+	touch /var/www/keyper-fe
 fi
 
 # Build and install flask modules/libraries
