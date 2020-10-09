@@ -28,7 +28,7 @@ if [ -f /container/keyper-fe/package.json ]; then
 		echo "##########################################################"
 	fi
 else
-	touch /var/www/keyper-fe
+	mkdir /var/www/keyper-fe
 fi
 
 # Build and install flask modules/libraries

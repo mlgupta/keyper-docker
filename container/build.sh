@@ -15,6 +15,7 @@ ln -s /container/tools/* /sbin/
 
 mkdir /container/run
 [ -d /container/environment/startup ] || mkdir /container/environment/startup
+[ -d /container/service/gunicorn/assets ] || mkdir /container/service/gunicorn/assets
 chown -R root:root /container/environment
 chmod 700 /container/environment /container/environment/startup
 
