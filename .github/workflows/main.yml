@@ -23,11 +23,9 @@ jobs:
       - 
         name: Checkout
         uses: actions/checkout@v2
-        
-      # Checks-out submodules  
-      - 
-        name: Checkout submodules
-        uses: textbook/git-checkout-submodule-action@master
+        with:
+          submodules: true
+          token: ${{ secrets.DBS_ACCESS_TOKEN }}
       -
         name: Set up QEMU
         uses: docker/setup-qemu-action@v1
