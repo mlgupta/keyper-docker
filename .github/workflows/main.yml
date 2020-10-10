@@ -60,5 +60,5 @@ jobs:
           push: true
           tags: |
             dbsentry/keyper:latest
-            user/app:${{steps.vars.output.tag}}
+            dbsentry/keyper:${{steps.vars.output.tag}}
                 
