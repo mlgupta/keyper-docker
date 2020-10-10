@@ -49,7 +49,7 @@ jobs:
       - 
           name: Get release env
           id: vars
-          run: echo ::set-output name=tag::$(awk -F= '/^release=/{print $2}' .release)
+          run: echo "::set-output name=tag::$(awk -F= '/^release=/{print $2}' .release)"
       -
         name: Build and push
         uses: docker/build-push-action@v2
