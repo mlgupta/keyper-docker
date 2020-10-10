@@ -49,7 +49,10 @@ jobs:
       - 
           name: Get release env
           id: vars
-          run: echo "::set-output name=tag::$(awk -F= '/^release=/{print $2}' .release)"
+          run: |
+            rel=$(cat .release | awk -F= '/^release=/{print $2}')
+            echo "::set-output name=tag::$rel"
+            echo "$rel"
       -
         name: Build and push
         uses: docker/build-push-action@v2
@@ -60,4 +63,5 @@ jobs:
           push: false
           tags: |
             dbsentry/keyper:latest
+            dbsentry/keyper:${{ steps.vars.outputs.tag }}
                 
