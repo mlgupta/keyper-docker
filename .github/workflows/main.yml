@@ -60,5 +60,4 @@ jobs:
           push: false
           tags: |
             dbsentry/keyper:latest
-            #dbsentry/keyper:${{steps.vars.output.tag}}
                 
