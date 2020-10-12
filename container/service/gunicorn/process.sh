@@ -14,5 +14,5 @@
 
 sv check /container/run/process/slapd
 log-helper info "gunicorn: Starting"
-exec su -s nginx /bin/sh -c "cd /var/www/keyper; . env/bin/activate; gunicorn -w 4 'app:create_app()' --bind 127.0.0.1:8000 --user=nginx --group=nginx"
+exec su -s /bin/sh -c "cd /var/www/keyper; . env/bin/activate; gunicorn -w 4 'app:create_app()' --bind 127.0.0.1:8000 --user=nginx --group=nginx" nginx
 log-helper info "gunicorn: Started"

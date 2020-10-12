@@ -18,12 +18,15 @@ if [ ! -e "$FIRST_START_DONE" ]; then
 	touch $FIRST_START_DONE
 fi
 
+log-helper info 'Setting UID/GID for nginx to ${NGINX_UID}/${NGINX_GID}'
+[ "$(id -g nginx)" -eq ${NGINX_GID} ] || groupmod -g ${NGINX_GID} nginx
+[ "$(id -u nginx)" -eq ${NGINX_UID} ] || usermod -u ${NGINX_UID} -g ${NGINX_GID} nginx
+
 cd /container/service/gunicorn/assets
 mv keyper /var/www
 cd /var/www
-chown -R nginx:nginx keyper
 
 [ -d /var/log/keyper ] || mkdir /var/log/keyper
-chown nginx:nginx /var/log/keyper
+chown -R nginx:nginx /var/log/keyper /var/www/keyper
 
 exit 0
