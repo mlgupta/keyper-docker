@@ -15,6 +15,7 @@ log-helper level eq trace && set -x
 
 ulimit ${LDAP_NOFILE}
 
+log-helper info "Setting UID/GID for ldap to ${LDAP_UID}/${LDAP_GID}"
 [ "$(id -g ldap)" -eq ${LDAP_GID} ] || groupmod -g ${LDAP_GID} ldap
 [ "$(id -u ldap)" -eq ${LDAP_UID} ] || usermod -u ${LDAP_UID} -g ${LDAP_GID} ldap
 
