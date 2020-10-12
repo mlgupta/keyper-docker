@@ -3,7 +3,6 @@ RUN 	apk add --no-cache 	python3 			\
 				py3-yaml			\
 				python3-dev			\
 				bash				\
-				shadow				\
 				gcc					\
 				musl-dev			\
 				npm					\
@@ -26,6 +25,7 @@ RUN 	apk add --no-cache 	python3 			\
 				py3-yaml			\
 				runit				\
 				bash				\
+				shadow				\
 				openssl				\
 				nginx	 			\
 				openldap 			\
