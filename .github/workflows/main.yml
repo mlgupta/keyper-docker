@@ -46,6 +46,13 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
+      -
+        name: Login to Quay
+        uses: docker/login-action@v1 
+        with:
+          registry: quay.io
+          username: ${{ secrets.QUAY_USERNAME }}
+          password: ${{ secrets.QUAY_TOKEN }}
       - 
           name: Get release env
           id: vars
@@ -64,4 +71,6 @@ jobs:
           tags: |
             dbsentry/keyper:latest
             dbsentry/keyper:${{ steps.vars.outputs.tag }}
+            quay.io/dbsentry/keyper:latest
+            quay.io/dbsentry/keyper:${{ steps.vars.outputs.tag }}
                 

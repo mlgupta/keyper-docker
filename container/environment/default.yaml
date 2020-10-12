@@ -22,6 +22,15 @@ LDAP_NOFILE: 1024
 # Do not perform any chown to fix file ownership
 DISABLE_CHOWN: false
 
+# UID/GID for LDAP User
+LDAP_UID: 10100 
+LDAP_GID: 10100
+
+# UID/GID for LDAP User
+NGINX_UID: 10080
+NGINX_GID: 10080
+
+
 # Default port to bind slapd
 LDAP_PORT: 389
 LDAPS_PORT: 636

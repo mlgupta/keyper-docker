@@ -18,6 +18,9 @@ if [ ! -e "$FIRST_START_DONE" ]; then
 	touch $FIRST_START_DONE
 fi
 
+[ "$(id -g nginx)" -eq ${NGINX_GID} ] || groupmod -g ${NGINX_GID} nginx
+[ "$(id -u nginx)" -eq ${NGINX_UID} ] || usermod -u ${NGINX_UID} -g ${NGINX_GID} nginx
+
 cd /container/service/nginx/assets
 mv keyper-fe /var/www
 mv scripts /var/www
@@ -42,7 +45,7 @@ if [ ! -e "$LDAP_TLS_CRT_PATH" ]; then
         openssl req -newkey rsa:2048 -nodes -keyout $LDAP_TLS_KEY_PATH -x509 -days 3650 -out $LDAP_TLS_CRT_PATH -subj "/CN=${HOSTNAME}"
 fi
 
-chown -R nginx:nginx /etc/nginx/conf.d/default.conf /etc/nginx/certs
+chown -R nginx:nginx /etc/nginx/conf.d/default.conf /etc/nginx/certs /var/lib/nginx
 
 [ -d /run/nginx ] || mkdir /run/nginx
 

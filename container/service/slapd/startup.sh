@@ -15,6 +15,9 @@ log-helper level eq trace && set -x
 
 ulimit ${LDAP_NOFILE}
 
+[ "$(id -g ldap)" -eq ${LDAP_GID} ] || groupmod -g ${LDAP_GID} ldap
+[ "$(id -u ldap)" -eq ${LDAP_UID} ] || usermod -u ${LDAP_UID} -g ${LDAP_GID} ldap
+
 [ -d /etc/openldap/slapd.d ] || mkdir /etc/openldap/slapd.d
 [ -d /etc/openldap/certs ] || mkdir /etc/openldap/certs
 [ -d /run/openldap ] || mkdir /run/openldap

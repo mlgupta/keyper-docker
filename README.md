@@ -1,4 +1,5 @@
 ![Docker Image Version (latest by date)](https://img.shields.io/docker/v/dbsentry/keyper)
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/dbsentry/keyper-docker/CI)
 ![Docker Image Size (latest by date)](https://img.shields.io/docker/image-size/dbsentry/keyper)
 ![GitHub issues](https://img.shields.io/github/issues/mlgupta/keyper-docker)
 ![GitHub last commit](https://img.shields.io/github/last-commit/mlgupta/keyper-docker)
