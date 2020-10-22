@@ -6,10 +6,11 @@
 ![GitHub](https://img.shields.io/github/license/mlgupta/keyper-docker)  
 ![Keyper Architecture](https://keyper.dbsentry.com/media/keyper.png)  
 
-Keyper is an SSH Key/Certificate Authentication Manager. It standardizes and centralizes the storage of SSH public keys and SSH Public Certificates for all Linux users within your organization saving significant time and effort it takes to manage SSH public keys and certificates on each Linux Server. Keyper is a lightweight container taking less than 100MB. It is launched either using Docker or Podman. You can be up and running within minutes instead of days.
+Keyper is an SSH Key/Certificate Authentication Manager. It standardizes and centralizes the storage of SSH public keys and SSH Public Certificates for all Linux users within your organization saving significant time and effort it takes to manage SSH public keys and certificates. Keyper is a lightweight container taking less than 100MB. It is launched either using Docker or Podman. You can be up and running within minutes instead of days.
 
 Features include:
 - Public key storage
+- SSH CA
 - Certificate signing and storage
 - Public Key/Certificate Expiration
 - Forced Key rotation
