@@ -27,7 +27,10 @@ mv keyper /var/www
 cd /var/www
 
 [ -d ${SSH_CA_DIR} ] || mkdir ${SSH_CA_DIR}
-cp /container/service/gunicorn/assets/sshca/* ${SSH_CA_DIR}
+if [ "$(ls -A /container/service/gunicorn/assets/sshca | grep -v lost+found)" ]; then
+	cp /container/service/gunicorn/assets/sshca/* ${SSH_CA_DIR}
+fi
+[ -d ${SSH_CA_DIR}/${SSH_CA_TMP_WORK_DIR} ] || mkdir ${SSH_CA_DIR}/${SSH_CA_TMP_WORK_DIR}
 
 if [ ! -e "$SSH_CA_DIR/$SSH_CA_HOST_KEY" ]; then
         log-helper info "CA Host Key does not exist. Generating one ..."
