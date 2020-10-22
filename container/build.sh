@@ -17,6 +17,7 @@ mkdir /container/run
 [ -d /container/environment/startup ] || mkdir /container/environment/startup
 [ -d /container/service/gunicorn/assets ] || mkdir /container/service/gunicorn/assets
 [ -d /container/service/nginx/assets/docs ] || mkdir /container/service/nginx/assets/docs
+[ -d /container/service/gunicorn/assets/sshca ] || mkdir /container/service/gunicorn/assets/sshca
 chown -R root:root /container/environment
 chmod 700 /container/environment /container/environment/startup
 

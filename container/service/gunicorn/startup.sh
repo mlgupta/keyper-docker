@@ -26,7 +26,20 @@ cd /container/service/gunicorn/assets
 mv keyper /var/www
 cd /var/www
 
+[ -d ${SSH_CA_DIR} ] || mkdir ${SSH_CA_DIR}
+cp /container/service/gunicorn/assets/sshca/* ${SSH_CA_DIR}
+
+if [ ! -e "$SSH_CA_DIR/$SSH_CA_HOST_KEY" ]; then
+        log-helper info "CA Host Key does not exist. Generating one ..."
+		ssh-keygen -t rsa -q -N "" -f ${SSH_CA_DIR}/${SSH_CA_HOST_KEY}
+fi
+
+if [ ! -e "$SSH_CA_DIR/$SSH_CA_USER_KEY" ]; then
+        log-helper info "CA User Key does not exist. Generating one ..."
+		ssh-keygen -t rsa -q -N "" -f ${SSH_CA_DIR}/${SSH_CA_USER_KEY}
+fi
+
 [ -d /var/log/keyper ] || mkdir /var/log/keyper
-chown -R nginx:nginx /var/log/keyper /var/www/keyper
+chown -R nginx:nginx /var/log/keyper /var/www/keyper ${SSH_CA_DIR}
 
 exit 0

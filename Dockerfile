@@ -22,19 +22,20 @@ RUN 	/container/build_builder.sh
 
 FROM 	alpine:latest
 RUN 	apk add --no-cache 	python3 			\
-				py3-yaml			\
-				runit				\
-				bash				\
-				shadow				\
-				openssl				\
-				nginx	 			\
-				openldap 			\
-				openldap-clients 		\
-				openldap-back-mdb 		\
-				openldap-overlay-memberof 	\
-				openldap-overlay-ppolicy 	\
-				openldap-overlay-refint 	\
-				openldap-overlay-auditlog 	\
+				py3-yaml						\
+				runit							\
+				bash							\
+				shadow							\
+				openssl							\
+				nginx	 						\
+				openssh-keygen					\
+				openldap 						\
+				openldap-clients 				\
+				openldap-back-mdb 				\
+				openldap-overlay-memberof 		\
+				openldap-overlay-ppolicy 		\
+				openldap-overlay-refint 		\
+				openldap-overlay-auditlog 		\
 				openldap-back-monitor 		
 COPY 	container /container
 COPY	--from=builder /container/out.tar.gz /container/out.tar.gz

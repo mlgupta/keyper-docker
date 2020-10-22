@@ -31,6 +31,7 @@ chown -R nginx:nginx keyper-fe scripts docs
 
 cd /var/www/scripts
 sed -i "s/{{HOSTNAME}}/${HOSTNAME}/g" auth.sh.txt
+sed -i "s/{{HOSTNAME}}/${HOSTNAME}/g" authprinc.sh.txt
 
 cd /container/service/nginx/assets/etc/conf.d
 mv default.conf /etc/nginx/conf.d

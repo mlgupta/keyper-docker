@@ -1,0 +1,57 @@
+#!/bin/sh
+#############################################################################
+#                       Confidentiality Information                         #
+#                                                                           #
+# This module is the confidential and proprietary information of            #
+# DBSentry Corp.; it is not to be copied, reproduced, or transmitted in any #
+# form, by any means, in whole or in part, nor is it to be used for any     #
+# purpose other than that for which it is expressly provided without the    #
+# written permission of DBSentry Corp.                                      #
+#                                                                           #
+# Copyright (c) 2020-2021 DBSentry Corp.  All Rights Reserved.              #
+#                                                                           #
+#############################################################################
+# This scripts does the work of AuthorizedPrinciaplsFile by calling REST    #
+# API and gets Principal for the user attempting to login using SSH.        #
+#                                                                           #
+# The script accepts two parameters:                                        #
+# 1. USER: linux username of the user trying to login is a mandetory        #
+#           parameter. It is set using %u on AuthorizedKeysCommand          #
+# 2. Ffingerprint: SSH Key finger print for the key. It is set              #
+#                  usign %f on AuthorizedPrincipalsCommand                  #                          
+# - Deploy this script under /etc/ssh (or corresponding location in your    #
+#   distro).                                                                #
+# - Rename it as authprinc.sh, and make sure it is owned by root and is     #
+#   executable.                                                             #
+#   # chown root:root authprinc.sh                                          #
+#   # chmod +x authprinc.sh                                                 #
+# - Adjust KEYPER_HOST per the hostname and port.                           #
+# - Adjust HTTP protocol to http or https per your configuration of keyper. #
+# - Add following lines to sshd_config file (%f is optional)                #
+#    AuthorizedPrincipalsCommand /bin/sh /etc/ssh/authprinc.sh %u %f        #
+#    AuthorizedPrincipalsCommandUser root                                   #
+# - Make sure that HOST is set to the hostname defined in keyper console.   #
+# - Restart sshd                                                            #
+# - Test script by invoking it on CLI                                       #
+#   # /etc/ssh/authprinc.sh <username> <fingerprint>                        #
+# - Above must return a princiapl name for user                             #
+#                                                                           #
+#############################################################################
+USER="$1"
+FP="$2"
+HOST=`hostname`
+KEYPER_HOST={{HOSTNAME}}
+
+CURL_ARGS="-s -q -f -m 7"
+CURL_URL_ARGS_GET="username=${USER}&host=${HOST}"
+CURL_URL_ARGS_POST="-Fusername=${USER} -Fhost=${HOST}"
+
+## Use this if you want to get public keys using HTTP GET
+[ -z ${FP} ] || CURL_URL_ARGS_GET="${CURL_URL_ARGS_GET}&fingerprint=${FP}"
+curl ${CURL_ARGS} "http://${KEYPER_HOST}/api/authprinc?${CURL_URL_ARGS_GET}"
+
+## Use this if you want get public keys using HTTP POST
+#[ -z ${FP} ] || CURL_URL_ARGS_POST="${CURL_URL_ARGS_POST} -Ffingerprint=${FP}"
+#curl ${CURL_ARGS} ${CURL_URL_ARGS_POST} http://${KEYPER_HOST}/api/authprinc
+
+exit $?
