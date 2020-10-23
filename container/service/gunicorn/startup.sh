@@ -27,6 +27,7 @@ mv keyper /var/www
 cd /var/www
 
 [ -d ${SSH_CA_DIR} ] || mkdir ${SSH_CA_DIR}
+
 if [ "$(ls -A /container/service/gunicorn/assets/sshca | grep -v lost+found)" ]; then
 	cp /container/service/gunicorn/assets/sshca/* ${SSH_CA_DIR}
 fi
