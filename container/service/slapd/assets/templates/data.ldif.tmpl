@@ -2,6 +2,7 @@ dn: {{LDAP_BASEDN}}
 objectClass: dcObject
 objectClass: organization
 o: {{LDAP_ORGANIZATION}}
+description: {"version": "0.1.8"}
 structuralObjectClass: organization
 
 dn: cn=Manager,{{LDAP_BASEDN}}
@@ -32,6 +33,8 @@ dn: cn=admin,ou=people,{{LDAP_BASEDN}}
 objectClass: inetOrgPerson
 objectClass: top
 objectClass: ldapPublicKey
+objectClass: pwdPolicy
+objectClass: extensibleObject
 uid: admin
 cn: admin
 sn: admin
@@ -40,6 +43,7 @@ displayName: admin
 userPassword: {{LDAP_ADMIN_PASSWORD}}
 memberOf: cn=KeyperAdmins,ou=groups,{{LDAP_BASEDN}}
 structuralObjectClass: inetOrgPerson
+pwdAttribute: userPassword
 
 dn: cn=KeyperAdmins,ou=groups,{{LDAP_BASEDN}}
 objectClass: groupOfNames
