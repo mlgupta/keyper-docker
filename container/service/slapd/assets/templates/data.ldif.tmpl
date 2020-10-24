@@ -33,6 +33,7 @@ dn: cn=admin,ou=people,{{LDAP_BASEDN}}
 objectClass: inetOrgPerson
 objectClass: top
 objectClass: ldapPublicKey
+objectClass: pwdPolicy
 uid: admin
 cn: admin
 sn: admin
@@ -41,6 +42,7 @@ displayName: admin
 userPassword: {{LDAP_ADMIN_PASSWORD}}
 memberOf: cn=KeyperAdmins,ou=groups,{{LDAP_BASEDN}}
 structuralObjectClass: inetOrgPerson
+pwdAttribute: userPassword
 
 dn: cn=KeyperAdmins,ou=groups,{{LDAP_BASEDN}}
 objectClass: groupOfNames
