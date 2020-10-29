@@ -14,5 +14,6 @@
 
 log-helper info "openldap: Starting"
 #exec /usr/sbin/slapd -F /etc/openldap/slapd.d -h "ldap:/// ldaps:///" -u ldap -g ldap -d "$LDAP_LOG_LEVEL"
-exec /usr/sbin/slapd -h "ldap:/// ldaps:///" -u ldap -g ldap -d "$LDAP_LOG_LEVEL"
+#exec /usr/sbin/slapd -h "ldap:/// ldaps:///" -u ldap -g ldap -d "$LDAP_LOG_LEVEL"
+exec /usr/sbin/slapd -h "ldap:/// ldaps:///" -u nginx -g nginx -d "$LDAP_LOG_LEVEL"
 log-helper info "openldap: Started"
