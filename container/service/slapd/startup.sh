@@ -16,8 +16,8 @@ log-helper level eq trace && set -x
 ulimit ${LDAP_NOFILE}
 
 log-helper info "Setting UID/GID for ldap to ${NGINX_UID}/${NGINX_GID}"
-[ "$(id -g ldap)" -eq ${NGINX_GID} ] || groupmod -g ${NGINX_GID} ldap
-[ "$(id -u ldap)" -eq ${NGINX_UID} ] || usermod -u ${NGINX_UID} -g ${NGINX_GID} ldap
+[ "$(id -g nginx)" -eq ${NGINX_GID} ] || groupmod -g ${NGINX_GID} ldap
+[ "$(id -u nginx)" -eq ${NGINX_UID} ] || usermod -u ${NGINX_UID} -g ${NGINX_GID} ldap
 
 [ -d /etc/openldap/slapd.d ] || mkdir /etc/openldap/slapd.d
 [ -d /etc/openldap/certs ] || mkdir /etc/openldap/certs
