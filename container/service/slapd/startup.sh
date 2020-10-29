@@ -15,9 +15,9 @@ log-helper level eq trace && set -x
 
 ulimit ${LDAP_NOFILE}
 
-log-helper info "Setting UID/GID for ldap to ${LDAP_UID}/${LDAP_GID}"
-[ "$(id -g ldap)" -eq ${LDAP_GID} ] || groupmod -g ${LDAP_GID} ldap
-[ "$(id -u ldap)" -eq ${LDAP_UID} ] || usermod -u ${LDAP_UID} -g ${LDAP_GID} ldap
+log-helper info "Setting UID/GID for nginx to ${NGINX_UID}/${NGINX_GID}"
+[ "$(id -g nginx)" -eq ${NGINX_GID} ] || groupmod -g ${NGINX_GID} ldap
+[ "$(id -u nginx)" -eq ${NGINX_UID} ] || usermod -u ${NGINX_UID} -g ${NGINX_GID} ldap
 
 [ -d /etc/openldap/slapd.d ] || mkdir /etc/openldap/slapd.d
 [ -d /etc/openldap/certs ] || mkdir /etc/openldap/certs
@@ -102,6 +102,7 @@ if [ ! -e "$FIRST_START_DONE" ]; then
 	touch $FIRST_START_DONE
 fi
 
-chown -R ldap:ldap /etc/openldap/slapd.d /run/openldap /var/log/openldap /var/lib/openldap /etc/openldap/certs
+#chown -R ldap:ldap /etc/openldap/slapd.d /run/openldap /var/log/openldap /var/lib/openldap /etc/openldap/certs
+chown -R nginx:nginx /etc/openldap/slapd.d /run/openldap /var/log/openldap /var/lib/openldap /etc/openldap/certs
 
 exit 0

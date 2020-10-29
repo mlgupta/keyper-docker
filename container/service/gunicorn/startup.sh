@@ -43,6 +43,11 @@ if [ ! -e "$SSH_CA_DIR/$SSH_CA_USER_KEY" ]; then
 		ssh-keygen -t rsa -q -N "" -f ${SSH_CA_DIR}/${SSH_CA_USER_KEY}
 fi
 
+if [ ! -e "$SSH_CA_DIR/$SSH_CA_KRL_FILE" ]; then
+        log-helper info "CA KRL does not exist. Generating one ..."
+		ssh-keygen -k -f ${SSH_CA_DIR}/${SSH_CA_KRL_FILE}
+fi
+
 [ -d /var/log/keyper ] || mkdir /var/log/keyper
 chown -R nginx:nginx /var/log/keyper /var/www/keyper ${SSH_CA_DIR}
 
