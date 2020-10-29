@@ -102,6 +102,7 @@ if [ ! -e "$FIRST_START_DONE" ]; then
 	touch $FIRST_START_DONE
 fi
 
-chown -R ldap:ldap /etc/openldap/slapd.d /run/openldap /var/log/openldap /var/lib/openldap /etc/openldap/certs
+#chown -R ldap:ldap /etc/openldap/slapd.d /run/openldap /var/log/openldap /var/lib/openldap /etc/openldap/certs
+chown -R nginx:nginx /etc/openldap/slapd.d /run/openldap /var/log/openldap /var/lib/openldap /etc/openldap/certs
 
 exit 0
