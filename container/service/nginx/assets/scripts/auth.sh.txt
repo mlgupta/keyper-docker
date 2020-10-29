@@ -15,10 +15,14 @@
 # and gets Public for the user attempting to login using SSH.               #
 #                                                                           #
 # The script accepts two parameters:                                        #
-# 1. USER: linux username of the user trying to login is a mandetory        #
-#           parameter. It is set using %u on AuthorizedKeysCommand          #
-# 2. Ffingerprint: SSH Key finger print is an optional parameter. It is set #
-#                  usign %f on AuthorizedKeysCommand                        #                          
+# 1. username: linux username of the user trying to login. It is a required #
+#              parameter. It is set using %u on AuthorizedKeysCommand       #
+# 2. fingerprint: SSH Key finger print. It is an optional parameter. It is  #
+#                 set using %f on AuthorizedKeysCommand                     #    
+# 3. key: SSH Key. It is an optional parameter. It is set using %k on       #
+#         AuthorizedKeysCommand                                             #                          
+# 4. key_type: SSH Key type. It is an optional parameter. It is set using   #
+#              %t on AuthorizedKeysCommand                                  #                          
 # - Deploy this script under /etc/ssh (or corresponding location in your    #
 #   distro).                                                                #
 # - Rename it as auth.sh, and make sure it is owned by root and is          #
@@ -28,7 +32,7 @@
 # - Adjust KEYPER_HOST per the hostname and port.                           #
 # - Adjust HTTP protocol to http or https per your configuration of keyper. #
 # - Add following lines to sshd_config file (%f is optional)                #
-#    AuthorizedKeysCommand /bin/sh /etc/ssh/auth.sh %u %f                   #
+#    AuthorizedKeysCommand /bin/sh /etc/ssh/auth.sh %u %f %k %t             #
 #    AuthorizedKeysCommandUser root                                         #
 # - Make sure that HOST is set to the hostname defined in keyper console.   #
 # - Restart sshd                                                            #
