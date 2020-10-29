@@ -40,18 +40,21 @@
 USER="$1"
 FP="$2"
 HOST=`hostname`
+KEY="$3"
+KEY_TYPE="$4"
 KEYPER_HOST={{HOSTNAME}}
 
 CURL_ARGS="-s -q -f -m 7"
-CURL_URL_ARGS_GET="username=${USER}&host=${HOST}"
-CURL_URL_ARGS_POST="-Fusername=${USER} -Fhost=${HOST}"
+CURL_ARGS="${CURL_ARGS} --data-urlencode username=${USER}"
+CURL_ARGS="${CURL_ARGS} --data-urlencode host=${HOST}"
+
+[ -z ${FP} ] || CURL_ARGS="${CURL_ARGS} --data-urlencode fingerprint=${FP}"
+[ -z ${KEY} ] || CURL_ARGS="${CURL_ARGS} --data-urlencode cert=${KEY_TYPE}#${KEY}"
 
 ## Use this if you want to get public keys using HTTP GET
-[ -z ${FP} ] || CURL_URL_ARGS_GET="${CURL_URL_ARGS_GET}&fingerprint=${FP}"
-curl ${CURL_ARGS} "http://${KEYPER_HOST}/api/authprinc?${CURL_URL_ARGS_GET}"
+curl -G ${CURL_ARGS} http://${KEYPER_HOST}/api/authprinc
 
 ## Use this if you want get public keys using HTTP POST
-#[ -z ${FP} ] || CURL_URL_ARGS_POST="${CURL_URL_ARGS_POST} -Ffingerprint=${FP}"
-#curl ${CURL_ARGS} ${CURL_URL_ARGS_POST} http://${KEYPER_HOST}/api/authprinc
+#curl ${CURL_ARGS} http://${KEYPER_HOST}/api/authprinc
 
 exit $?
