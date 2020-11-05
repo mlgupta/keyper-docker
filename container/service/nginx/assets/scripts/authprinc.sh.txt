@@ -19,10 +19,8 @@
 #              parameter. It is set using %u on AuthorizedKeysCommand       #
 # 2. fingerprint: SSH Key finger print. It is an optional parameter. It is  #
 #                 set using %f on AuthorizedKeysCommand                     #    
-# 3. key: SSH Key. It is an optional parameter. It is set using %k on       #
-#         AuthorizedKeysCommand                                             #                          
-# 4. key_type: SSH Key type. It is an optional parameter. It is set using   #
-#              %t on AuthorizedKeysCommand                                  #                          
+# 3. serial: Certificate Serial No. It is set using %s on                   #   
+#         AuthorizedPrincipalsCommand                                       #                          
 # - Deploy this script under /etc/ssh (or corresponding location in your    #
 #   distro).                                                                #
 # - Rename it as authprinc.sh, and make sure it is owned by root and is     #
@@ -32,20 +30,19 @@
 # - Adjust KEYPER_HOST per the hostname and port.                           #
 # - Adjust HTTP protocol to http or https per your configuration of keyper. #
 # - Add following lines to sshd_config file (%f is optional)                #
-#    AuthorizedPrincipalsCommand /bin/sh /etc/ssh/authprinc.sh %u %f %k %t  #
+#    AuthorizedPrincipalsCommand /bin/sh /etc/ssh/authprinc.sh %u %f %s     #
 #    AuthorizedPrincipalsCommandUser root                                   #
 # - Make sure that HOST is set to the hostname defined in keyper console.   #
 # - Restart sshd                                                            #
 # - Test script by invoking it on CLI                                       #
-#   # /etc/ssh/authprinc.sh <username> <fingerprint>                        #
+#   # /etc/ssh/authprinc.sh <username> <fingerprint> <serial>               #
 # - Above must return a princiapl name for user                             #
 #                                                                           #
 #############################################################################
 USER="$1"
 FP="$2"
 HOST=`hostname`
-KEY="$3"
-KEY_TYPE="$4"
+SERIAL="$3"
 KEYPER_HOST={{HOSTNAME}}
 
 CURL_ARGS="-s -q -f -m 7"
@@ -53,7 +50,7 @@ CURL_ARGS="${CURL_ARGS} --data-urlencode username=${USER}"
 CURL_ARGS="${CURL_ARGS} --data-urlencode host=${HOST}"
 
 [ -z ${FP} ] || CURL_ARGS="${CURL_ARGS} --data-urlencode fingerprint=${FP}"
-[ -z ${KEY} ] || CURL_ARGS="${CURL_ARGS} --data-urlencode cert=${KEY_TYPE}#${KEY}"
+[ -z ${SERIAL} ] || CURL_ARGS="${CURL_ARGS} --data-urlencode serial=${SERIAL}"
 
 ## Use this if you want to get public keys using HTTP GET
 curl -G ${CURL_ARGS} http://${KEYPER_HOST}/api/authprinc
