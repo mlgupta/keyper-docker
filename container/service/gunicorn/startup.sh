@@ -23,7 +23,7 @@ log-helper info "Setting UID/GID for nginx to ${NGINX_UID}/${NGINX_GID}"
 [ "$(id -u nginx)" -eq ${NGINX_UID} ] || usermod -u ${NGINX_UID} -g ${NGINX_GID} nginx
 
 cd /container/service/gunicorn/assets
-mv keyper /var/www
+[ -d keyper ] && mv keyper /var/www
 cd /var/www
 
 [ -d ${SSH_CA_DIR} ] || mkdir ${SSH_CA_DIR}
