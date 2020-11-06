@@ -23,9 +23,9 @@ log-helper info "Setting UID/GID for nginx to ${NGINX_UID}/${NGINX_GID}"
 [ "$(id -u nginx)" -eq ${NGINX_UID} ] || usermod -u ${NGINX_UID} -g ${NGINX_GID} nginx
 
 cd /container/service/nginx/assets
-mv keyper-fe /var/www
-mv scripts /var/www
-mv docs /var/www
+[ -d keyper-fe ] && mv keyper-fe /var/www
+[ -d scripts ] && mv scripts /var/www
+[ -d docs ] && mv docs /var/www
 cd /var/www
 chown -R nginx:nginx keyper-fe scripts docs
 
