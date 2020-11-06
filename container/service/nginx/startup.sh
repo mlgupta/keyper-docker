@@ -34,7 +34,7 @@ sed -i "s/{{HOSTNAME}}/${HOSTNAME}/g" auth.sh.txt
 sed -i "s/{{HOSTNAME}}/${HOSTNAME}/g" authprinc.sh.txt
 
 cd /container/service/nginx/assets/etc/conf.d
-mv default.conf /etc/nginx/conf.d
+[ -f default.conf ] && mv default.conf /etc/nginx/conf.d
 
 [ -d /etc/nginx/certs ] || mkdir /etc/nginx/certs
 cp /container/service/nginx/assets/certs/* /etc/nginx/certs
