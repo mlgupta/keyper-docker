@@ -33,14 +33,17 @@ if [ "$(ls -A /container/service/gunicorn/assets/sshca | grep -v lost+found)" ];
 fi
 [ -d ${SSH_CA_DIR}/${SSH_CA_TMP_WORK_DIR} ] || mkdir ${SSH_CA_DIR}/${SSH_CA_TMP_WORK_DIR}
 
+[ -z ${SSH_CA_KEY_TYPE} ] || SSH_CA_KEY_TYPE=rsa
+log-helper info "CA KEY Type: ${SSH_CA_KEY_TYPE}."
+
 if [ ! -e "$SSH_CA_DIR/$SSH_CA_HOST_KEY" ]; then
         log-helper info "CA Host Key does not exist. Generating one ..."
-		ssh-keygen -t rsa -q -N "" -f ${SSH_CA_DIR}/${SSH_CA_HOST_KEY}
+		ssh-keygen -t ${SSH_CA_KEY_TYPE} -q -N "" -f ${SSH_CA_DIR}/${SSH_CA_HOST_KEY}
 fi
 
 if [ ! -e "$SSH_CA_DIR/$SSH_CA_USER_KEY" ]; then
         log-helper info "CA User Key does not exist. Generating one ..."
-		ssh-keygen -t rsa -q -N "" -f ${SSH_CA_DIR}/${SSH_CA_USER_KEY}
+		ssh-keygen -t ${SSH_CA_KEY_TYPE} -q -N "" -f ${SSH_CA_DIR}/${SSH_CA_USER_KEY}
 fi
 
 if [ ! -e "$SSH_CA_DIR/$SSH_CA_KRL_FILE" ]; then
