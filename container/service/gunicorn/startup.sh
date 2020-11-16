@@ -33,7 +33,7 @@ if [ "$(ls -A /container/service/gunicorn/assets/sshca | grep -v lost+found)" ];
 fi
 [ -d ${SSH_CA_DIR}/${SSH_CA_TMP_WORK_DIR} ] || mkdir ${SSH_CA_DIR}/${SSH_CA_TMP_WORK_DIR}
 
-[ -z ${SSH_CA_KEY_TYPE} ] || SSH_CA_KEY_TYPE=rsa
+[ -z ${SSH_CA_KEY_TYPE} ] && SSH_CA_KEY_TYPE=rsa
 log-helper info "CA KEY Type: ${SSH_CA_KEY_TYPE}."
 
 if [ ! -e "$SSH_CA_DIR/$SSH_CA_HOST_KEY" ]; then
