@@ -1,22 +1,22 @@
 FROM 	alpine:latest AS builder
-RUN 	apk add --no-cache 	python3 			\
-				py3-yaml			\
-				python3-dev			\
-				bash				\
-				gcc					\
-				musl-dev			\
-				npm					\
-				openssl				\
-				nginx	 			\
-				openldap 			\
-				openldap-dev 			\
-				openldap-clients 		\
-				openldap-back-mdb 		\
-				openldap-overlay-memberof 	\
-				openldap-overlay-ppolicy 	\
-				openldap-overlay-refint 	\
-				openldap-overlay-auditlog 	\
-				openldap-back-monitor 		
+RUN 	apk add --no-cache 	python3 					\
+							py3-yaml					\
+							python3-dev					\
+							bash						\
+							gcc							\
+							musl-dev					\
+							npm							\
+							openssl						\
+							nginx	 					\
+							openldap 					\
+							openldap-dev 				\
+							openldap-clients 			\
+							openldap-back-mdb 			\
+							openldap-overlay-memberof 	\
+							openldap-overlay-ppolicy 	\
+							openldap-overlay-refint 	\
+							openldap-overlay-auditlog 	\
+							openldap-back-monitor 		
 COPY 	modules /container
 RUN 	/container/build_builder.sh
 
