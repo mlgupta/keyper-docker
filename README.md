@@ -46,6 +46,8 @@ Refer to the [administration guide](https://keyper.dbsentry.com/docs/) for furth
 
 ## Related Projects
 - [Keyper](https://github.com/dbsentry/keyper)
+- [Keyper-fe](https://github.com/dbsentry/keyper-fe)
+- [Keyper-docs](https://github.com/dbsentry/keyper-docs)
 
 ## License
 All assets and code are under the GNU GPL LICENSE and in the public domain unless specified otherwise.
