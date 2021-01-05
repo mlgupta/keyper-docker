@@ -33,6 +33,7 @@ $ git clone https://github.com/dbsentry/keyper-docker.git
 $ cd keyper-docker
 $ git submodule init
 $ git submodule update modules/keyper
+$ git submodule update modules/keyper-fe
 ```
 3. By default Makefile creates image as dbsentry/keyper. To change, modify Makefile
 4. Change .release to reflect correct tag on docker image
